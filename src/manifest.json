@@ -2,7 +2,7 @@
     "name": "music-info",
     "description": "This simple extension let's you visualize the music currently playing in the browser by getting the name of the tab playing audio and sending it locally to a server.",
     "manifest_version": 2,
-    "version": "1",
+    "version": "2",
 
     "background": {
         "scripts": ["background.js"]

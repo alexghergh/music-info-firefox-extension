@@ -1,14 +1,21 @@
 const http = require('http');
 const fs = require('fs');
 
-const server = http.createServer((request, response) => {
+const song_file = '/tmp/mozilla_song'
+const not_playing_message = 'Not playing'
+
+// use this as a caching mechanism
+let globalSongPlaying = null;
+
+// create the server and the callback function to execute on request
+http.createServer((request, response) => {
 
     let body = []
 
     const { url, method, headers } = request;
 
     // log the call to the server
-    console.log(method + " " + url + " " + JSON.stringify(headers));
+    //console.log(method + ' ' + url + ' ' + JSON.stringify(headers));
 
     request.on('data', (chunk) => {
 
@@ -21,18 +28,26 @@ const server = http.createServer((request, response) => {
         body = Buffer.concat(body).toString();
 
         response.on('error', (err) => {
-            console.log("Response error: " + err);
+            console.log('Response error: ' + err);
         });
 
         // write the song playing to a temp file
         if (method === 'POST') {
             let songPlaying = JSON.parse(body)['songPlaying'];
+            //console.log("Body: " + JSON.stringify(JSON.parse(body), null, 4));
+            console.log("songplaying: " + songPlaying);
 
-            fs.writeFile('/tmp/mozilla_song', songPlaying, (err) => {
-                if (err) {
-                    console.log('Error writing to file: ' + err);
-                }
-            });
+            if (globalSongPlaying !== songPlaying) {
+
+                globalSongPlaying = songPlaying;
+                //console.log("Wrote to file: " + ( globalSongPlaying === null ? not_playing_message : globalSongPlaying ));
+
+                fs.writeFile(song_file, ( globalSongPlaying === null ? not_playing_message : globalSongPlaying ), (err) => {
+                    if (err) {
+                        console.log('Error writing to file: ' + err);
+                    }
+                });
+            }
         }
 
         // prepare and send a reponse body
@@ -43,7 +58,7 @@ const server = http.createServer((request, response) => {
         response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
         const responseBody = {
-            "status": response.statusCode
+            'status': response.statusCode
         }
 
         response.write(JSON.stringify(responseBody));
