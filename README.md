@@ -4,7 +4,7 @@
 
 Simple firefox extension to send the currently audio playing tab to a local server.
 
-The server then writes the audio to a file locally, which you can then use in whatever application you want (for example displaying the song playing in tmux statusline_).
+The server then writes the audio to a file locally, which you can then use in whatever application you want (for example displaying the song playing in tmux statusline).
 
 The file is written to /tmp. This has 2 benefits:
 
@@ -40,4 +40,4 @@ WantedBy=default.target
 
 Substitue the path to node and the path to server.js to suit your configuration.
 
-Then just start the service with `systemctl --user start <systemd-unit-name>.service` or enable the service on boot with `systemctl --user enable <systemd-unit-name.service` (where <systemd-unit-name> is the name you gave to the systemd unit file). All regular systemctl commands like `start`, `stop`, `status` etc. work as expected.
+Then just start the service with `systemctl --user start <systemd-unit-name>.service` or enable the service on boot with `systemctl --user enable <systemd-unit-name.service` (where \<systemd-unit-name\> is the name you gave to the systemd unit file). All regular systemctl commands like `start`, `stop`, `status` etc. work as expected.
