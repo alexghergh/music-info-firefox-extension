@@ -40,4 +40,4 @@ WantedBy=default.target
 
 Substitue the path to node and the path to server.js to suit your configuration.
 
-Then just start the service with `systemctl --user start <systemd-unit-name>.service` or enable the service on boot with `systemctl --user enable <systemd-unit-name.service` (where \<systemd-unit-name\> is the name you gave to the systemd unit file). All regular systemctl commands like `start`, `stop`, `status` etc. work as expected.
+Then just start the service with `systemctl --user start <systemd-unit-name>.service` or enable the service on boot with `systemctl --user enable <systemd-unit-name>.service` (where `<systemd-unit-name>` is the name you gave to the systemd unit file). All regular systemctl commands like `start`, `stop`, `status` etc. work as expected.
