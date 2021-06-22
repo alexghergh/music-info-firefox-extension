@@ -12,7 +12,7 @@ window.setInterval(() => {
 
     query.then((tabs) => {
         // process the tab name with a regex to remove all the unnecessary bits from tab names
-        let regex = /▶ | - Music - Nextcloud| - YouTube/g;
+        let regex = /▶ | - Music| - Nextcloud| - YouTube/g;
 
         // process only the first tab playing audio
         try {
