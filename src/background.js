@@ -1,14 +1,14 @@
-// check for tabs playing audio every few seconds
+// check for tabs playing audio every 5 seconds
 window.setInterval(() => {
 
-    let songPlaying;
+    let songPlaying = null;
 
     function onError(error) {
         console.log("Error: ${error}");
     }
 
     // query all the tabs that play sound
-    let query = browser.tabs.query({audible: true});
+    let query = browser.tabs.query({ audible: true });
 
     query.then((tabs) => {
         // process the tab name with a regex to remove all the unnecessary bits from tab names
@@ -29,8 +29,9 @@ window.setInterval(() => {
         request.open('POST', "http://localhost:17565/");
         request.setRequestHeader("Content-Type", "application/json");
 
-        console.log("json: " + JSON.stringify({songPlaying: songPlaying}));
-        request.send(JSON.stringify({songPlaying: songPlaying}));
+        let body = JSON.stringify({ songPlaying: songPlaying });
+        console.log("sending json: " + body);
+        request.send(body);
 
         request.onload = function () {
             if (request.status == 200) {
